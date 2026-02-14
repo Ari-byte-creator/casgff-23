@@ -29,18 +29,6 @@
       overflow: hidden;
     }
 
-    .login-page::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
-      animation: sparkleLogin 25s linear infinite;
-    }
-
     .login-page::after {
       content: '';
       position: absolute;
@@ -51,15 +39,6 @@
       background: radial-gradient(circle at 30% 40%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
                   radial-gradient(circle at 70% 60%, rgba(255, 105, 180, 0.3) 0%, transparent 50%);
       animation: gradientMoveLogin 12s ease-in-out infinite;
-    }
-
-    @keyframes sparkleLogin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
     }
 
     @keyframes gradientMoveLogin {
@@ -83,7 +62,6 @@
       position: relative;
       z-index: 1;
       border: 3px solid rgba(255, 255, 255, 0.6);
-      animation: containerFloat 6s ease-in-out infinite;
     }
 
     .login-container::before {
@@ -106,15 +84,6 @@
       }
       50% {
         background-position: 100% 50%;
-      }
-    }
-
-    @keyframes containerFloat {
-      0%, 100% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-10px);
       }
     }
 
@@ -218,33 +187,6 @@
       transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
       margin-top: 5px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .login-page button::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        45deg,
-        transparent 30%,
-        rgba(255, 255, 255, 0.3) 50%,
-        transparent 70%
-      );
-      animation: buttonShimmer 3s infinite;
-    }
-
-    @keyframes buttonShimmer {
-      0% {
-        transform: translateX(-100%) translateY(-100%) rotate(45deg);
-      }
-      100% {
-        transform: translateX(100%) translateY(100%) rotate(45deg);
-      }
     }
 
     .login-page button:hover {
@@ -394,7 +336,6 @@
       font-size: 20px;
       opacity: 0;
       animation: floatUp 15s infinite ease-in;
-      filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.5));
     }
 
     .floating-heart:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 25px; }
@@ -490,16 +431,6 @@
       height: 750px;
       object-fit: contain;
       filter: drop-shadow(0 10px 30px rgba(255, 105, 180, 0.3));
-      animation: imageGlow 4s ease-in-out infinite;
-    }
-
-    @keyframes imageGlow {
-      0%, 100% {
-        filter: drop-shadow(0 10px 30px rgba(255, 105, 180, 0.3));
-      }
-      50% {
-        filter: drop-shadow(0 15px 40px rgba(255, 105, 180, 0.5));
-      }
     }
 
     .envelope-wrapper {
@@ -554,7 +485,6 @@
       font-size: 16px;
       opacity: 0.7;
       animation: petalFall 12s infinite linear;
-      filter: drop-shadow(0 2px 4px rgba(255, 182, 193, 0.5));
     }
 
     .petal:nth-child(1) { left: 5%; animation-delay: 0s; }
@@ -1029,13 +959,16 @@
     }
 
     .gmail-container h1 {
-      font-size: 4rem;
-      color: #ff1493;
+      font-size: 3.8rem;
+      color: #d9534f;
       margin-bottom: 25px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1),
-                   0 0 20px rgba(255, 20, 147, 0.3);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15),
+                   0 0 20px rgba(217, 83, 79, 0.3);
       animation: pulse 2s ease-in-out infinite;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
     }
 
     @keyframes pulse {
@@ -1048,18 +981,20 @@
     }
 
     .gmail-container p {
-      font-size: 1.6rem;
-      color: #ff69b4;
+      font-size: 1.4rem;
+      color: #8B2635;
       margin-bottom: 45px;
-      line-height: 1.6;
-      font-family: Arial, sans-serif;
+      line-height: 1.8;
+      font-family: 'Cormorant Garamond', serif;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .gmail-button {
       display: inline-block;
       padding: 22px 60px 22px 90px;
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ff1493, #ff69b4, #ff1493);
       background-size: 200% 200%;
@@ -1067,7 +1002,7 @@
       border: none;
       border-radius: 70px;
       cursor: pointer;
-      font-family: 'Dancing Script', cursive;
+      font-family: 'Cormorant Garamond', serif;
       text-decoration: none;
       box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6),
                   0 0 50px rgba(255, 20, 147, 0.3);
@@ -1075,7 +1010,8 @@
       animation: gradientShift 3s ease infinite;
       position: relative;
       overflow: hidden;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .gmail-button::after {
@@ -1141,7 +1077,6 @@
       font-size: 3rem;
       opacity: 0.4;
       animation: float 6s ease-in-out infinite;
-      filter: drop-shadow(0 4px 8px rgba(255, 20, 147, 0.3));
     }
 
     .hearts-decoration:nth-child(1) {
@@ -1170,16 +1105,10 @@
 
     @keyframes float {
       0%, 100% {
-        transform: translateY(0) rotate(0deg) scale(1);
-      }
-      25% {
-        transform: translateY(-20px) rotate(5deg) scale(1.1);
+        transform: translateY(0) rotate(0deg);
       }
       50% {
-        transform: translateY(-30px) rotate(10deg) scale(1.15);
-      }
-      75% {
-        transform: translateY(-20px) rotate(5deg) scale(1.1);
+        transform: translateY(-25px) rotate(10deg);
       }
     }
 
