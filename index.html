@@ -25,24 +25,121 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-page::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: sparkleLogin 25s linear infinite;
+    }
+
+    .login-page::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, rgba(255, 105, 180, 0.3) 0%, transparent 50%);
+      animation: gradientMoveLogin 12s ease-in-out infinite;
+    }
+
+    @keyframes sparkleLogin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes gradientMoveLogin {
+      0%, 100% {
+        opacity: 0.4;
+      }
+      50% {
+        opacity: 0.7;
+      }
     }
 
     .login-container {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       padding: 60px 50px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      border-radius: 25px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4),
+                  0 0 80px rgba(255, 20, 147, 0.3);
       text-align: center;
       max-width: 450px;
       width: 100%;
+      position: relative;
+      z-index: 1;
+      border: 3px solid rgba(255, 255, 255, 0.6);
+      animation: containerFloat 6s ease-in-out infinite;
+    }
+
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      background: linear-gradient(45deg, #ff1493, #ff69b4, #ffc0cb, #ff69b4, #ff1493);
+      background-size: 400% 400%;
+      border-radius: 25px;
+      z-index: -1;
+      animation: borderGlowLogin 4s ease infinite;
+    }
+
+    @keyframes borderGlowLogin {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes containerFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .login-page h1 {
       font-size: 3.5rem;
       color: #ff1493;
       margin-bottom: 15px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1),
+                   0 0 20px rgba(255, 20, 147, 0.4),
+                   0 0 40px rgba(255, 20, 147, 0.2);
       line-height: 1.2;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1),
+                     0 0 20px rgba(255, 20, 147, 0.4),
+                     0 0 40px rgba(255, 20, 147, 0.2);
+      }
+      50% {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1),
+                     0 0 30px rgba(255, 20, 147, 0.6),
+                     0 0 60px rgba(255, 20, 147, 0.4);
+      }
     }
 
     .subtitle {
@@ -121,6 +218,33 @@
       transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
       margin-top: 5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-page button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 70%
+      );
+      animation: buttonShimmer 3s infinite;
+    }
+
+    @keyframes buttonShimmer {
+      0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+      }
     }
 
     .login-page button:hover {
@@ -212,7 +336,7 @@
       flex-direction: column;
       align-items: center;
       position: relative;
-      background-color: #f0e6f6;
+      background: linear-gradient(135deg, #f8e6f0 0%, #f0e6f6 50%, #e6f0f6 100%);
     }
 
     .letter-page::before {
@@ -224,10 +348,33 @@
       height: 100%;
       background: url('background.png') center center;
       background-size: cover;
-      opacity: 0.4;
+      opacity: 0.3;
       z-index: 0;
       animation: panBackground 60s ease-in-out infinite;
       pointer-events: none;
+    }
+
+    .letter-page::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 25% 30%, rgba(255, 182, 193, 0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 75% 70%, rgba(230, 190, 255, 0.2) 0%, transparent 50%);
+      animation: letterGradientMove 15s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes letterGradientMove {
+      0%, 100% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 0.8;
+      }
     }
 
     /* Floating hearts in background */
@@ -247,6 +394,7 @@
       font-size: 20px;
       opacity: 0;
       animation: floatUp 15s infinite ease-in;
+      filter: drop-shadow(0 2px 4px rgba(255, 105, 180, 0.5));
     }
 
     .floating-heart:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 25px; }
@@ -296,29 +444,24 @@
       }
     }
 
-    .image-container {
-      margin-top: 80px;
-      margin-bottom: -150px;
-      text-align: center;
+    .valentine-text-wrapper {
       position: relative;
-      z-index: 5;
+      z-index: 10;
+      text-align: center;
+      padding: 40px 20px 0px 20px;
     }
 
     .valentine-text {
-      position: absolute;
-      top: 40px;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
       font-size: 4rem;
       font-weight: 700;
       color: #d9534f;
       text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3),
                    0 0 20px rgba(217, 83, 79, 0.4),
                    0 0 40px rgba(217, 83, 79, 0.2);
-      z-index: 10;
-      width: 100%;
       text-align: center;
       animation: textGlow 3s ease-in-out infinite;
+      margin-bottom: 0;
     }
 
     @keyframes textGlow {
@@ -334,10 +477,29 @@
       }
     }
 
+    .image-container {
+      margin-top: -50px;
+      margin-bottom: -150px;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
     .profile-image {
       width: 750px;
       height: 750px;
       object-fit: contain;
+      filter: drop-shadow(0 10px 30px rgba(255, 105, 180, 0.3));
+      animation: imageGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes imageGlow {
+      0%, 100% {
+        filter: drop-shadow(0 10px 30px rgba(255, 105, 180, 0.3));
+      }
+      50% {
+        filter: drop-shadow(0 15px 40px rgba(255, 105, 180, 0.5));
+      }
     }
 
     .envelope-wrapper {
@@ -392,6 +554,7 @@
       font-size: 16px;
       opacity: 0.7;
       animation: petalFall 12s infinite linear;
+      filter: drop-shadow(0 2px 4px rgba(255, 182, 193, 0.5));
     }
 
     .petal:nth-child(1) { left: 5%; animation-delay: 0s; }
@@ -712,8 +875,8 @@
       position: fixed;
       bottom: 30px;
       right: 30px;
-      padding: 15px 30px;
-      font-size: 1.3rem;
+      padding: 18px 35px;
+      font-size: 1.4rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ff69b4, #ff1493);
       color: white;
@@ -721,11 +884,30 @@
       border-radius: 50px;
       cursor: pointer;
       font-family: 'Dancing Script', cursive;
-      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.5);
+      box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.5s ease;
       z-index: 1000;
+      overflow: hidden;
+    }
+
+    .next-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .next-button:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     .next-button.show {
@@ -735,7 +917,7 @@
 
     .next-button:hover {
       transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 25px rgba(255, 20, 147, 0.7);
+      box-shadow: 0 10px 30px rgba(255, 20, 147, 0.7);
     }
 
     .next-button:active {
@@ -762,9 +944,30 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
       background-size: 50px 50px;
       animation: sparkle 20s linear infinite;
+    }
+
+    .gmail-page::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(255, 105, 180, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 50%, rgba(255, 20, 147, 0.3) 0%, transparent 50%);
+      animation: gradientMove 10s ease-in-out infinite;
+    }
+
+    @keyframes gradientMove {
+      0%, 100% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 0.8;
+      }
     }
 
     @keyframes sparkle {
@@ -778,34 +981,61 @@
 
     .gmail-container {
       background: rgba(255, 255, 255, 0.98);
-      padding: 60px 50px;
-      border-radius: 30px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 70px 60px;
+      border-radius: 35px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4),
+                  0 0 100px rgba(255, 20, 147, 0.3);
       text-align: center;
-      max-width: 500px;
+      max-width: 550px;
       width: 100%;
       position: relative;
       z-index: 1;
       animation: fadeInScale 0.8s ease-out;
+      border: 3px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .gmail-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ff1493, #ff69b4, #ffc0cb, #ff69b4, #ff1493);
+      background-size: 400% 400%;
+      border-radius: 35px;
+      z-index: -1;
+      animation: borderGlow 3s ease infinite;
+    }
+
+    @keyframes borderGlow {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
     }
 
     @keyframes fadeInScale {
       0% {
         opacity: 0;
-        transform: scale(0.8);
+        transform: scale(0.8) translateY(30px);
       }
       100% {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(1) translateY(0);
       }
     }
 
     .gmail-container h1 {
-      font-size: 3.5rem;
+      font-size: 4rem;
       color: #ff1493;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 25px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1),
+                   0 0 20px rgba(255, 20, 147, 0.3);
       animation: pulse 2s ease-in-out infinite;
+      letter-spacing: 1px;
     }
 
     @keyframes pulse {
@@ -818,47 +1048,69 @@
     }
 
     .gmail-container p {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: #ff69b4;
-      margin-bottom: 40px;
+      margin-bottom: 45px;
       line-height: 1.6;
       font-family: Arial, sans-serif;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     .gmail-button {
       display: inline-block;
-      padding: 20px 50px 20px 80px;
-      font-size: 1.8rem;
+      padding: 22px 60px 22px 90px;
+      font-size: 2rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ff1493, #ff69b4, #ff1493);
       background-size: 200% 200%;
       color: white;
       border: none;
-      border-radius: 60px;
+      border-radius: 70px;
       cursor: pointer;
       font-family: 'Dancing Script', cursive;
       text-decoration: none;
-      box-shadow: 0 10px 30px rgba(255, 20, 147, 0.6);
-      transition: all 0.3s ease;
+      box-shadow: 0 15px 40px rgba(255, 20, 147, 0.6),
+                  0 0 50px rgba(255, 20, 147, 0.3);
+      transition: all 0.4s ease;
       animation: gradientShift 3s ease infinite;
       position: relative;
       overflow: hidden;
+      letter-spacing: 1px;
+    }
+
+    .gmail-button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .gmail-button:hover::after {
+      width: 300px;
+      height: 300px;
     }
 
     .gmail-button::before {
       content: '💌';
       position: absolute;
-      left: 20px;
-      font-size: 1.8rem;
+      left: 25px;
+      font-size: 2rem;
       animation: bounce 1s ease-in-out infinite;
+      z-index: 1;
     }
 
     @keyframes bounce {
       0%, 100% {
-        transform: translateY(0);
+        transform: translateY(0) rotate(-5deg);
       }
       50% {
-        transform: translateY(-5px);
+        transform: translateY(-8px) rotate(5deg);
       }
     }
 
@@ -875,19 +1127,21 @@
     }
 
     .gmail-button:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 15px 40px rgba(255, 20, 147, 0.8);
+      transform: translateY(-6px) scale(1.08);
+      box-shadow: 0 20px 50px rgba(255, 20, 147, 0.8),
+                  0 0 70px rgba(255, 20, 147, 0.5);
     }
 
     .gmail-button:active {
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-3px) scale(1.05);
     }
 
     .hearts-decoration {
       position: absolute;
-      font-size: 2rem;
-      opacity: 0.3;
+      font-size: 3rem;
+      opacity: 0.4;
       animation: float 6s ease-in-out infinite;
+      filter: drop-shadow(0 4px 8px rgba(255, 20, 147, 0.3));
     }
 
     .hearts-decoration:nth-child(1) {
@@ -916,10 +1170,16 @@
 
     @keyframes float {
       0%, 100% {
-        transform: translateY(0) rotate(0deg);
+        transform: translateY(0) rotate(0deg) scale(1);
+      }
+      25% {
+        transform: translateY(-20px) rotate(5deg) scale(1.1);
       }
       50% {
-        transform: translateY(-20px) rotate(10deg);
+        transform: translateY(-30px) rotate(10deg) scale(1.15);
+      }
+      75% {
+        transform: translateY(-20px) rotate(5deg) scale(1.1);
       }
     }
 
@@ -1006,7 +1266,14 @@
 
       .valentine-text {
         font-size: 1.8rem;
-        top: 20px;
+      }
+
+      .valentine-text-wrapper {
+        padding: 30px 20px 0px 20px;
+      }
+
+      .image-container {
+        margin-top: -25px;
       }
 
       #envelope {
@@ -1135,9 +1402,13 @@
       <div class="petal">🌸</div>
     </div>
 
+    <!-- Valentine's Text - Now First -->
+    <div class="valentine-text-wrapper">
+      <div class="valentine-text">Happy Valentine's my Love</div>
+    </div>
+
     <!-- Image Section -->
     <div class="image-container">
-      <div class="valentine-text">Happy Valentine's my Love</div>
       <img 
         src="MY VALENTINE.png" 
         alt="My Valentine" 
@@ -1256,6 +1527,9 @@ And I find home in her.</div>
         // Hide login page and show letter page
         document.getElementById('loginPage').classList.add('hidden');
         document.getElementById('letterPage').classList.add('show');
+        
+        // Scroll to top of page
+        window.scrollTo(0, 0);
         
         // Show next button after 30 seconds
         setTimeout(() => {
