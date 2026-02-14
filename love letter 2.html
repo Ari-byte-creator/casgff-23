@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine's Love Letter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Login Page Styles */
+    .login-page {
+      background: linear-gradient(135deg, #ffc0cb 0%, #ff69b4 50%, #ff1493 100%);
+      font-family: 'Dancing Script', cursive;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .login-page h1 {
+      font-size: 3rem;
+      color: #ff1493;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: #ff69b4;
+      margin-bottom: 30px;
+      font-family: Arial, sans-serif;
+    }
+
+    .heart-icon {
+      font-size: 4rem;
+      color: #ff1493;
+      margin-bottom: 20px;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 1.3rem;
+      color: #d9534f;
+      margin-bottom: 10px;
+      font-family: Arial, sans-serif;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.1rem;
+      border: 2px solid #ffc0cb;
+      border-radius: 10px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    input[type="password"]::placeholder {
+      font-family: Arial, sans-serif;
+    }
+
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #ff1493;
+      box-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
+    }
+
+    .login-page button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+    }
+
+    .login-page button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.6);
+    }
+
+    .login-page button:active {
+      transform: translateY(0);
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 1.1rem;
+      margin-top: 15px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .error-message.show {
+      opacity: 1;
+    }
+
+    .hint {
+      font-size: 0.9rem;
+      color: #ff69b4;
+      margin-top: 15px;
+      font-style: italic;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Love Letter Page Styles */
+    .letter-page {
+      font-family: 'Dancing Script', cursive;
+      padding: 20px;
+      min-height: 100vh;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      background-color: #f0e6f6;
+    }
+
+    .letter-page::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('background.png') center center;
+      background-size: cover;
+      opacity: 0.4;
+      z-index: 0;
+      animation: panBackground 60s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Floating hearts in background */
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0;
+      animation: floatUp 15s infinite ease-in;
+    }
+
+    .floating-heart:nth-child(1) { left: 10%; animation-delay: 0s; font-size: 25px; }
+    .floating-heart:nth-child(2) { left: 20%; animation-delay: 2s; font-size: 18px; }
+    .floating-heart:nth-child(3) { left: 30%; animation-delay: 4s; font-size: 22px; }
+    .floating-heart:nth-child(4) { left: 40%; animation-delay: 1s; font-size: 20px; }
+    .floating-heart:nth-child(5) { left: 50%; animation-delay: 5s; font-size: 24px; }
+    .floating-heart:nth-child(6) { left: 60%; animation-delay: 3s; font-size: 19px; }
+    .floating-heart:nth-child(7) { left: 70%; animation-delay: 6s; font-size: 21px; }
+    .floating-heart:nth-child(8) { left: 80%; animation-delay: 2.5s; font-size: 23px; }
+    .floating-heart:nth-child(9) { left: 90%; animation-delay: 4.5s; font-size: 20px; }
+    .floating-heart:nth-child(10) { left: 15%; animation-delay: 7s; font-size: 26px; }
+
+    @keyframes floatUp {
+      0% {
+        bottom: -10%;
+        opacity: 0;
+        transform: translateX(0) rotate(0deg);
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        bottom: 110%;
+        opacity: 0;
+        transform: translateX(100px) rotate(360deg);
+      }
+    }
+
+    .letter-page > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes panBackground {
+      0% {
+        background-position: 0% center;
+      }
+      50% {
+        background-position: 100% center;
+      }
+      100% {
+        background-position: 0% center;
+      }
+    }
+
+    .image-container {
+      margin-top: 80px;
+      margin-bottom: -150px;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .valentine-text {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 4rem;
+      font-weight: 700;
+      color: #d9534f;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3),
+                   0 0 20px rgba(217, 83, 79, 0.4),
+                   0 0 40px rgba(217, 83, 79, 0.2);
+      z-index: 10;
+      width: 100%;
+      text-align: center;
+      animation: textGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes textGlow {
+      0%, 100% {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3),
+                     0 0 20px rgba(217, 83, 79, 0.4),
+                     0 0 40px rgba(217, 83, 79, 0.2);
+      }
+      50% {
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3),
+                     0 0 30px rgba(217, 83, 79, 0.6),
+                     0 0 60px rgba(217, 83, 79, 0.4);
+      }
+    }
+
+    .profile-image {
+      width: 750px;
+      height: 750px;
+      object-fit: contain;
+    }
+
+    .envelope-wrapper {
+      height: 800px;
+      position: relative;
+      margin-bottom: -150px;
+      overflow: visible;
+      z-index: 5;
+    }
+
+    #envelope {
+      position: relative;
+      width: 420px;
+      height: 270px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      margin-left: auto;
+      margin-right: auto;
+      top: 150px;
+      background-color: #d9534f;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2),
+                  0 0 30px rgba(217, 83, 79, 0.3);
+      animation: envelopeGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes envelopeGlow {
+      0%, 100% {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2),
+                    0 0 30px rgba(217, 83, 79, 0.3);
+      }
+      50% {
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3),
+                    0 0 50px rgba(217, 83, 79, 0.5);
+      }
+    }
+
+    /* Rose petals */
+    .rose-petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .petal {
+      position: absolute;
+      top: -10%;
+      font-size: 16px;
+      opacity: 0.7;
+      animation: petalFall 12s infinite linear;
+    }
+
+    .petal:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 15%; animation-delay: 2s; }
+    .petal:nth-child(3) { left: 25%; animation-delay: 4s; }
+    .petal:nth-child(4) { left: 35%; animation-delay: 1s; }
+    .petal:nth-child(5) { left: 45%; animation-delay: 3s; }
+    .petal:nth-child(6) { left: 55%; animation-delay: 5s; }
+    .petal:nth-child(7) { left: 65%; animation-delay: 2.5s; }
+    .petal:nth-child(8) { left: 75%; animation-delay: 4.5s; }
+    .petal:nth-child(9) { left: 85%; animation-delay: 1.5s; }
+    .petal:nth-child(10) { left: 95%; animation-delay: 3.5s; }
+
+    @keyframes petalFall {
+      0% {
+        top: -10%;
+        transform: rotate(0deg) translateX(0);
+      }
+      100% {
+        top: 110%;
+        transform: rotate(360deg) translateX(50px);
+      }
+    }
+
+    .front {
+      position: absolute;
+      width: 0;
+      height: 0;
+      z-index: 3;
+    }
+
+    .flap {
+      border-left: 210px solid transparent;
+      border-right: 210px solid transparent;
+      border-bottom: 123px solid transparent;
+      border-top: 147px solid #d9534f;
+      transform-origin: top;
+      pointer-events: none;
+    }
+
+    .pocket {
+      border-left: 210px solid #f5a3a2;
+      border-right: 210px solid #f5a3a2;
+      border-bottom: 135px solid #ff6f61;
+      border-top: 135px solid transparent;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+
+    .letter {
+      position: relative;
+      background-color: #fff;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      height: 140%;
+      top: -35%;
+      border-radius: 6px;
+      box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 20px 25px;
+      scroll-behavior: smooth;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .letter::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+      );
+      animation: shimmer 3s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+      }
+    }
+
+.letter::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .letter::-webkit-scrollbar-track {
+      background: #ffe6e6;
+      border-radius: 4px;
+    }
+
+    .letter::-webkit-scrollbar-thumb {
+      background: #d9534f;
+      border-radius: 4px;
+    }
+
+    .letter::-webkit-scrollbar-thumb:hover {
+      background: #c9302c;
+    }
+
+    .letter:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .poem-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #d9534f;
+      text-align: center;
+      margin-bottom: 35px;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      letter-spacing: 0.5px;
+    }
+
+    .poem-content {
+      font-size: 1.3rem;
+      line-height: 2.1;
+      color: #8B2635;
+      text-align: left;
+      font-family: 'Cormorant Garamond', serif;
+      white-space: pre-line;
+      font-weight: 700;
+    }
+
+    .poem-stanza {
+      margin-bottom: 20px;
+    }
+
+    .open .flap {
+      transform: rotateX(180deg);
+      transition: transform 0.4s ease, z-index 0.6s;
+      z-index: 1;
+    }
+
+    .close .flap {
+      transform: rotateX(0deg);
+      transition: transform 0.4s 0.6s ease, z-index 1s;
+      z-index: 5;
+    }
+
+    .close .letter {
+      transform: translateY(0px);
+      transition: transform 0.4s ease, z-index 1s, clip-path 0.4s ease;
+      z-index: 1;
+      clip-path: inset(40% 0 5% 0);
+    }
+
+    .open .letter {
+      transform: translateY(-100px);
+      transition: transform 0.4s 0.6s ease, z-index 0.6s, clip-path 0.4s 0.6s ease;
+      z-index: 2;
+      clip-path: inset(0% 0 0 0);
+    }
+
+    .hearts {
+      position: absolute;
+      top: 90px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: 0;
+      right: 10%;
+      pointer-events: none;
+    }
+
+    .heart:before,
+    .heart:after {
+      position: absolute;
+      content: "";
+      left: 50px;
+      top: 0;
+      width: 50px;
+      height: 80px;
+      background: #e60073;
+      border-radius: 50px 50px 0 0;
+      transform: rotate(-45deg);
+      transform-origin: 0 100%;
+      pointer-events: none;
+    }
+
+    .heart:after {
+      left: 0;
+      transform: rotate(45deg);
+      transform-origin: 100% 100%;
+    }
+
+    .close .heart {
+      opacity: 0;
+      animation: none;
+    }
+
+    .a1 {
+      left: 20%;
+      transform: scale(0.6);
+      opacity: 1;
+      animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate, fadeOut 3s ease-in-out 1;
+      animation-fill-mode: forwards;
+      animation-delay: 0.7s, 0.7s, 0.7s;
+    }
+
+    .a2 {
+      left: 55%;
+      transform: scale(1);
+      opacity: 1;
+      animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate, fadeOut 3s ease-in-out 1;
+      animation-fill-mode: forwards;
+      animation-delay: 0.7s, 0.7s, 0.7s;
+    }
+
+    .a3 {
+      left: 10%;
+      transform: scale(0.8);
+      opacity: 1;
+      animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate, fadeOut 3s ease-in-out 1;
+      animation-fill-mode: forwards;
+      animation-delay: 0.7s, 0.7s, 0.7s;
+    }
+
+    @keyframes slideUp {
+      0% {
+        top: 0;
+      }
+      100% {
+        top: -600px;
+      }
+    }
+
+    @keyframes sideSway {
+      0% {
+        margin-left: 0px;
+      }
+      100% {
+        margin-left: 50px;
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .reset {
+      text-align: center;
+      margin-bottom: 40px;
+      margin-top: -200px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .reset button {
+      font-weight: 800;
+      font-style: normal;
+      transition: all 0.3s ease;
+      background-color: transparent;
+      border: solid 2px #d9534f;
+      border-radius: 4px;
+      color: #d9534f;
+      display: inline-block;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin: 5px;
+      padding: 10px;
+      line-height: 1em;
+      text-decoration: none;
+      min-width: 120px;
+      cursor: pointer;
+    }
+
+    .reset button:hover {
+      background-color: #d9534f;
+      color: #fff;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 15px rgba(217, 83, 79, 0.4);
+    }
+
+    .reset button:active {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Show/Hide logic */
+    .hidden {
+      display: none !important;
+    }
+
+    .show {
+      display: flex !important;
+    }
+
+    /* Next Button */
+    .next-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      padding: 15px 30px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+      z-index: 1000;
+    }
+
+    .next-button.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .next-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 20, 147, 0.7);
+    }
+
+    .next-button:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    /* Gmail Page */
+    .gmail-page {
+      background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffc0cb 100%);
+      font-family: 'Dancing Script', cursive;
+      min-height: 100vh;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gmail-page::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: sparkle 20s linear infinite;
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .gmail-container {
+      background: rgba(255, 255, 255, 0.98);
+      padding: 60px 50px;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      animation: fadeInScale 0.8s ease-out;
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .gmail-container h1 {
+      font-size: 3.5rem;
+      color: #ff1493;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .gmail-container p {
+      font-size: 1.5rem;
+      color: #ff69b4;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      font-family: Arial, sans-serif;
+    }
+
+    .gmail-button {
+      display: inline-block;
+      padding: 20px 50px 20px 80px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff1493, #ff69b4, #ff1493);
+      background-size: 200% 200%;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      cursor: pointer;
+      font-family: 'Dancing Script', cursive;
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(255, 20, 147, 0.6);
+      transition: all 0.3s ease;
+      animation: gradientShift 3s ease infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gmail-button::before {
+      content: '💌';
+      position: absolute;
+      left: 20px;
+      font-size: 1.8rem;
+      animation: bounce 1s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .gmail-button:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 20, 147, 0.8);
+    }
+
+    .gmail-button:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .hearts-decoration {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.3;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .hearts-decoration:nth-child(1) {
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .hearts-decoration:nth-child(2) {
+      top: 20%;
+      right: 15%;
+      animation-delay: 1s;
+    }
+
+    .hearts-decoration:nth-child(3) {
+      bottom: 15%;
+      left: 15%;
+      animation-delay: 2s;
+    }
+
+    .hearts-decoration:nth-child(4) {
+      bottom: 10%;
+      right: 10%;
+      animation-delay: 3s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(10deg);
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #envelope {
+        width: 350px;
+        height: 225px;
+      }
+
+      .flap {
+        border-left: 175px solid transparent;
+        border-right: 175px solid transparent;
+        border-bottom: 102px solid transparent;
+        border-top: 123px solid #d9534f;
+      }
+
+      .pocket {
+        border-left: 175px solid #f5a3a2;
+        border-right: 175px solid #f5a3a2;
+        border-bottom: 113px solid #ff6f61;
+        border-top: 113px solid transparent;
+      }
+
+      .poem-content {
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .poem-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-page h1 {
+        font-size: 2.2rem;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .login-container {
+        padding: 40px 30px;
+      }
+
+      .profile-image {
+        width: 300px;
+        height: 300px;
+      }
+
+      .valentine-text {
+        font-size: 1.8rem;
+        top: 20px;
+      }
+
+      #envelope {
+        width: 280px;
+        height: 180px;
+      }
+
+      .flap {
+        border-left: 140px solid transparent;
+        border-right: 140px solid transparent;
+        border-bottom: 82px solid transparent;
+        border-top: 98px solid #d9534f;
+      }
+
+      .pocket {
+        border-left: 140px solid #f5a3a2;
+        border-right: 140px solid #f5a3a2;
+        border-bottom: 90px solid #ff6f61;
+        border-top: 90px solid transparent;
+      }
+
+      .poem-content {
+        font-size: 1.05rem;
+        line-height: 1.9;
+        font-weight: 700;
+      }
+
+      .poem-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Page -->
+  <div class="login-page" id="loginPage">
+    <div class="login-container">
+      <div class="heart-icon">❤️</div>
+      <h1>Happy Valentine's</h1>
+      <p class="subtitle">Enter the password to continue</p>
+      
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="password">Password:</label>
+          <input 
+            type="password" 
+            id="password" 
+            placeholder="Hint: MM/DD or MMDD" 
+            autocomplete="off"
+            required
+          />
+        </div>
+        <button type="submit">Unlock My Heart 💕</button>
+        <p class="error-message" id="errorMsg">Incorrect password! Try again 💔</p>
+        <p class="hint">Hint: When is Valentine's Day?</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Love Letter Page -->
+  <div class="letter-page" id="letterPage">
+    <!-- Background Music -->
+    <audio autoplay loop id="bgMusic">
+      <source src="background-music.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <script>
+      // Set background music volume to 30%
+      document.addEventListener('DOMContentLoaded', function() {
+        var bgMusic = document.getElementById('bgMusic');
+        if (bgMusic) {
+          bgMusic.volume = 0.3;
+        }
+      });
+    </script>
+
+    <!-- Floating Hearts -->
+    <div class="floating-hearts">
+      <div class="floating-heart">💕</div>
+      <div class="floating-heart">💖</div>
+      <div class="floating-heart">💗</div>
+      <div class="floating-heart">💓</div>
+      <div class="floating-heart">💕</div>
+      <div class="floating-heart">💖</div>
+      <div class="floating-heart">💗</div>
+      <div class="floating-heart">💓</div>
+      <div class="floating-heart">💕</div>
+      <div class="floating-heart">💖</div>
+    </div>
+
+    <!-- Rose Petals -->
+    <div class="rose-petals">
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌸</div>
+    </div>
+
+    <!-- Image Section -->
+    <div class="image-container">
+      <div class="valentine-text">Happy Valentine's my Love</div>
+      <img 
+        src="MY VALENTINE.png" 
+        alt="My Valentine" 
+        class="profile-image"
+      />
+    </div>
+
+    <!-- Envelope Section -->
+    <div class="envelope-wrapper">
+      <div id="envelope" class="close">
+        <div class="front flap"></div>
+        <div class="front pocket"></div>
+        <div class="letter" id="letterContent">
+          <div class="poem-title">Bound</div>
+          <div class="poem-content">
+<div class="poem-stanza">Tala—
+name of a shining star.
+And though you are far, your warmth still reaches—
+from sky above to here with me, on ground below.</div>
+
+<div class="poem-stanza">You shine across spaces large and far,
+yet somehow found your way to me.
+Through the murky black spaces—
+carved through destiny and relativity.</div>
+<div class="poem-stanza">Light travels patiently, and so does your love—quite dearly.</div>
+
+<div class="poem-stanza">To share a space inhabited by love,
+where silence feels like a jazz band
+and breathing feels aligned—
+my heart your home and yours as mine.</div>
+
+<div class="poem-stanza">Bound together, you and I—
+not by chains, but by a certain gravity.
+Pulled gently, steadily, into the same orbit again and again.
+A two-body pair, forming spirals of love—
+as they dance in the ball of the cosmos.</div>
+
+<div class="poem-stanza">When the world is loud, you are the hush.
+When I am scattered, you gather me whole.</div>
+
+<div class="poem-stanza">No other place I'd rather be than in your arms,
+where time loosens its grip
+and the universe feels small enough to hold
+in the palm of your hand.</div>
+
+<div class="poem-stanza">And in it is you and me, sharing a space only two hearts can fit.
+A world where love is monarch, and we are its willing subjects.
+Tapping feet in a ball of vivid colours,
+a place where hearts find comfort.</div>
+
+<div class="poem-stanza">Warmth across a distance—
+a star shines, finding its home in me.
+And I find home in her.</div>
+
+<div class="poem-stanza">Bound together—bound forever.</div>
+
+<div style="height: 90px;"></div>
+          </div>
+        </div>
+        <div class="hearts">
+          <div class="heart a1"></div>
+          <div class="heart a2"></div>
+          <div class="heart a3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="reset">
+      <button id="open">Open</button>
+      <button id="reset">Close</button>
+    </div>
+
+    <!-- Next Button (appears after 30 seconds) -->
+    <button class="next-button" id="nextButton">Next →</button>
+  </div>
+
+  <!-- Gmail Page -->
+  <div class="gmail-page" id="gmailPage">
+    <div class="hearts-decoration">❤️</div>
+    <div class="hearts-decoration">💕</div>
+    <div class="hearts-decoration">💖</div>
+    <div class="hearts-decoration">💗</div>
+    
+    <div class="gmail-container">
+      <h1>One More Thing...</h1>
+      <p>Click below :)) 💌</p>
+      <a href="https://gmail.com" class="gmail-button" target="_blank">
+        Open Gmail
+      </a>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    // Login functionality
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+      
+      // Accepted formats: 0214, 214, 02/14, 2/14
+      const validPasswords = ['0214', '214', '02/14', '2/14'];
+      
+      if (validPasswords.includes(password)) {
+        // Hide login page and show letter page
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('letterPage').classList.add('show');
+        
+        // Show next button after 30 seconds
+        setTimeout(() => {
+          document.getElementById('nextButton').classList.add('show');
+        }, 30000);
+      } else {
+        // Show error message
+        errorMsg.classList.add('show');
+        document.getElementById('password').value = '';
+        
+        // Hide error message after 3 seconds
+        setTimeout(() => {
+          errorMsg.classList.remove('show');
+        }, 3000);
+      }
+    });
+
+    // Next button functionality
+    document.getElementById('nextButton').addEventListener('click', function() {
+      document.getElementById('letterPage').classList.remove('show');
+      document.getElementById('letterPage').classList.add('hidden');
+      document.getElementById('gmailPage').classList.add('show');
+    });
+
+    // Envelope functionality
+    $(document).ready(function () {
+      var envelope = $("#envelope");
+      var btn_open = $("#open");
+      var btn_reset = $("#reset");
+
+      envelope.click(function () {
+        open();
+      });
+      btn_open.click(function () {
+        open();
+      });
+      btn_reset.click(function () {
+        close();
+      });
+
+      function open() {
+        envelope.addClass("open").removeClass("close");
+      }
+      function close() {
+        envelope.addClass("close").removeClass("open");
+      }
+
+      // Clean drag-to-scroll functionality for the letter
+      const letterContent = document.getElementById('letterContent');
+      let isDown = false;
+      let startY;
+      let scrollTop;
+
+      letterContent.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startY = e.pageY;
+        scrollTop = letterContent.scrollTop;
+        letterContent.style.cursor = 'grabbing';
+        letterContent.style.userSelect = 'none';
+      });
+
+      letterContent.addEventListener('mouseleave', () => {
+        isDown = false;
+        letterContent.style.cursor = 'grab';
+      });
+
+      letterContent.addEventListener('mouseup', () => {
+        isDown = false;
+        letterContent.style.cursor = 'grab';
+      });
+
+      letterContent.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const y = e.pageY;
+        const walk = (startY - y);
+        letterContent.scrollTop = scrollTop + walk;
+      });
+
+      // Touch support for mobile
+      let touchStartY;
+      let touchScrollTop;
+
+      letterContent.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].pageY;
+        touchScrollTop = letterContent.scrollTop;
+      }, { passive: true });
+
+      letterContent.addEventListener('touchmove', (e) => {
+        const y = e.touches[0].pageY;
+        const walk = (touchStartY - y);
+        letterContent.scrollTop = touchScrollTop + walk;
+      }, { passive: true });
+
+    });
+  </script>
+</body>
+</html>
